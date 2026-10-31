@@ -97,7 +97,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3951936,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3952064,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -194,6 +194,23 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 }());
 		</script>
-	</body>
+	
+<style>
+#rot-tip{display:none;position:fixed;inset:0;z-index:9;background:#12141f;color:#f2efe6;font:20px/1.8 sans-serif;text-align:center;padding-top:30vh}
+#fs-btn{display:none;position:fixed;right:8px;bottom:8px;z-index:8;padding:10px 14px;border:2px solid #e8b04a;background:#12141f;color:#f2efe6;font:16px sans-serif;border-radius:6px;opacity:.85}
+@media (orientation:portrait) and (pointer:coarse){#rot-tip{display:block}}
+@media (pointer:coarse){#fs-btn{display:block}}
+</style>
+<div id="rot-tip">📱<br>请把手机横过来玩<br><small>Please rotate your phone<br>(关闭竖屏锁定 / turn off rotation lock)</small></div>
+<button id="fs-btn">全屏 Fullscreen</button>
+<script>
+document.getElementById('fs-btn').onclick=function(){
+ var e=document.documentElement,f=e.requestFullscreen||e.webkitRequestFullscreen;
+ var r=f&&f.call(e);
+ Promise.resolve(r).then(function(){try{screen.orientation.lock('landscape')}catch(x){}}).catch(function(){});
+ this.style.display='none';
+};
+</script>
+</body>
 </html>
 
