@@ -101,7 +101,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3959440,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3959424,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -208,9 +208,10 @@ const engine = new Engine(GODOT_CONFIG);
 <div id="rot-tip">📱<br>请把手机横过来玩<br><small>Please rotate your phone<br>(关闭竖屏锁定 / turn off rotation lock)</small></div>
 <button id="fs-btn">全屏 Fullscreen</button>
 <script>
-var _fs=document.documentElement;if(!(_fs.requestFullscreen||_fs.webkitRequestFullscreen)){var _b=document.getElementById('fs-btn');_b.textContent='添加到主屏幕可全屏';_b.onclick=function(){alert('点浏览器下方的「分享」按钮,选「添加到主屏幕」,从桌面图标打开就是全屏。');};}else document.getElementById('fs-btn').onclick=function(){
- var e=document.documentElement,f=e.requestFullscreen||e.webkitRequestFullscreen;
- var r=f&&f.call(e);
+var _fs=document.documentElement;
+if(!(_fs.requestFullscreen||_fs.webkitRequestFullscreen)){var _b=document.getElementById('fs-btn');_b.textContent='添加到主屏幕可全屏';_b.onclick=function(){alert('点浏览器下方的「分享」按钮,选「添加到主屏幕」,从桌面图标打开就是全屏。');};}
+else document.getElementById('fs-btn').onclick=function(){
+ var r=(_fs.requestFullscreen||_fs.webkitRequestFullscreen).call(_fs);
  Promise.resolve(r).then(function(){try{screen.orientation.lock('landscape')}catch(x){}}).catch(function(){});
  this.style.display='none';
 };
