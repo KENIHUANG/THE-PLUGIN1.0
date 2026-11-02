@@ -101,7 +101,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":4206912,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":4157536,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -201,20 +201,26 @@ const engine = new Engine(GODOT_CONFIG);
 	
 <style>
 #rot-tip{display:none;position:fixed;inset:0;z-index:9;background:#12141f;color:#f2efe6;font:20px/1.8 sans-serif;text-align:center;padding-top:30vh}
-#fs-btn{display:none;position:fixed;right:8px;bottom:8px;z-index:8;padding:10px 14px;border:2px solid #e8b04a;background:#12141f;color:#f2efe6;font:16px sans-serif;border-radius:6px;opacity:.85}
+#fs-btn{display:none;position:fixed;right:6px;top:6px;z-index:8;padding:6px 10px;border:1px solid #e8b04a;background:#12141f;color:#f2efe6;font:13px sans-serif;border-radius:6px;opacity:.8}
 @media (orientation:portrait) and (pointer:coarse){#rot-tip{display:block}}
 @media (pointer:coarse){#fs-btn{display:block}}
 </style>
 <div id="rot-tip">📱<br>请把手机横过来玩<br><small>Please rotate your phone<br>(关闭竖屏锁定 / turn off rotation lock)</small></div>
 <button id="fs-btn">全屏 Fullscreen</button>
 <script>
-var _fs=document.documentElement;
-if(!(_fs.requestFullscreen||_fs.webkitRequestFullscreen)){var _b=document.getElementById('fs-btn');_b.textContent='添加到主屏幕可全屏';_b.onclick=function(){alert('点浏览器下方的「分享」按钮,选「添加到主屏幕」,从桌面图标打开就是全屏。');};}
-else document.getElementById('fs-btn').onclick=function(){
- var r=(_fs.requestFullscreen||_fs.webkitRequestFullscreen).call(_fs);
- Promise.resolve(r).then(function(){try{screen.orientation.lock('landscape')}catch(x){}}).catch(function(){});
- this.style.display='none';
-};
+var _fs=document.documentElement,_b=document.getElementById('fs-btn');
+var _sa=(window.navigator.standalone===true)||(window.matchMedia&&window.matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches);
+function _hide(){_b.style.setProperty('display','none','important');try{sessionStorage.setItem('fsHide','1')}catch(x){}}
+var _gone=false;try{_gone=sessionStorage.getItem('fsHide')==='1'}catch(x){}
+if(_sa||_gone){_b.remove();}
+else{
+ if(!(_fs.requestFullscreen||_fs.webkitRequestFullscreen)){_b.textContent='添加到主屏幕可全屏 ✕';_b.onclick=_hide;}
+ else{_b.onclick=function(){
+  var r=(_fs.requestFullscreen||_fs.webkitRequestFullscreen).call(_fs);
+  Promise.resolve(r).then(function(){try{screen.orientation.lock('landscape')}catch(x){}}).catch(function(){});
+  _hide();
+ };}
+}
 </script>
 </body>
 </html>
